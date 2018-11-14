@@ -2,6 +2,4 @@
 
 Group members:
 
-Ada Lovelace adalovelace@csu.fullerton.edu
-
-Charles Babbage charlesbab@csu.fullerton.edu
+Justin Huang Justin_huang@csu.fullerton.edu
