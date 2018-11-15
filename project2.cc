@@ -18,6 +18,7 @@
 
 
 
+
 using namespace std;
 
 
@@ -25,12 +26,13 @@ using namespace std;
 // Randomize the order of all items in the list
 //-----------------------------------------------------------------------------
 void randomize_list(string_vector & strings) {
- 
 	
-	for (int i = 0; i <= strings.size; i++)
+	int vectorsize = strings.size();
+	
+	for (int i = 0; i <= vectorsize; i++)
 	{
 	
-		int r = rand() % strings.size;
+		int r = rand() % strings.size();
 		swap(strings[i], strings[r]);
 	}
   return;
@@ -40,7 +42,7 @@ void randomize_list(string_vector & strings) {
 void merge(string_vector & strings, size_t start, size_t mid, size_t end) {
 
 	
-	std::string left[strings.size / 2];
+	std::string left[1000];
 
 	for (int l = 0; l < mid - start; l++)
 	{
@@ -48,7 +50,7 @@ void merge(string_vector & strings, size_t start, size_t mid, size_t end) {
 	}
 	left[mid - start] = numeric_limits<int>::max();
 
-	std::string right[strings.size / 2];
+	std::string right[1000];
 
 	for (int r = 0; r < end - mid; r++)
 	{
