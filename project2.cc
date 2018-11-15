@@ -28,7 +28,7 @@ using namespace std;
 void randomize_list(string_vector & strings) {
 	
 	int vectorsize = strings.size();
-	
+	srand(time(NULL));
 	for (int i = 0; i <= vectorsize; i++)
 	{
 	
@@ -42,41 +42,38 @@ void randomize_list(string_vector & strings) {
 void merge(string_vector & strings, size_t start, size_t mid, size_t end) {
 
 	
-	std::string left[1000];
+	size_t i = start;
+	size_t j = mid + 1;
+	string_vector temp;
 
-	for (int l = 0; l < mid - start; l++)
-	{
-		left[l] = strings[start + l];
+	if (mid < end && strings[mid] <= strings[mid + 1]) {
+		return;
 	}
-	left[mid - start] = numeric_limits<int>::max();
 
-	std::string right[1000];
-
-	for (int r = 0; r < end - mid; r++)
-	{
-		right[r] = strings[mid + r];
-	}
-	right[end - mid + 1] = numeric_limits<int>::max();
-	
-	int i = 0;
-	int j = 0;
-
-	for (int k = start; k <= end; k++)
-	{
-		if (left[i] < right[j])
-		{
-			strings[k] = left[i];
-			i++;
+	while (i <= mid && j <= end) {
+		if (strings[i] > strings[j]) {
+			temp.push_back(strings[j++]);
 		}
-		else
-		{
-			strings[k] = right[j];
-			j++;
+		else {
+			temp.push_back(strings[i++]);
 		}
 	}
-	
-  return;
+
+	while (i <= mid) {
+		temp.push_back(strings[i++]);
+	}
+
+	while (j <= end) {
+		temp.push_back(strings[j++]);
+	}
+
+	for (int i = 0; i < temp.size(); i++) {
+		strings[start + i] = temp[i];
+	}
+
+	return;
 }
+
 
 
 //-----------------------------------------------------------------------------
