@@ -16,6 +16,8 @@
 #include <string>
 #include <vector>
 
+
+
 using namespace std;
 
 
@@ -23,15 +25,57 @@ using namespace std;
 // Randomize the order of all items in the list
 //-----------------------------------------------------------------------------
 void randomize_list(string_vector & strings) {
-  // TODO: implement this function, then delete this comment
+ 
+	
+	for (int i = 0; i <= strings.size; i++)
+	{
+	
+		int r = rand() % strings.size;
+		swap(strings[i], strings[r]);
+	}
   return;
 }
 
 //-----------------------------------------------------------------------------
 void merge(string_vector & strings, size_t start, size_t mid, size_t end) {
-  // TODO: implement this function, then delete this comment
+
+	
+	std::string left[strings.size / 2];
+
+	for (int l = 0; l < mid - start; l++)
+	{
+		left[l] = strings[start + l];
+	}
+	left[mid - start] = numeric_limits<int>::max();
+
+	std::string right[strings.size / 2];
+
+	for (int r = 0; r < end - mid; r++)
+	{
+		right[r] = strings[mid + r];
+	}
+	right[end - mid + 1] = numeric_limits<int>::max();
+	
+	int i = 0;
+	int j = 0;
+
+	for (int k = start; k <= end; k++)
+	{
+		if (left[i] < right[j])
+		{
+			strings[k] = left[i];
+			i++;
+		}
+		else
+		{
+			strings[k] = right[j];
+			j++;
+		}
+	}
+	
   return;
 }
+
 
 //-----------------------------------------------------------------------------
 // Sort the given list using the merge sort algorithm.
@@ -40,7 +84,13 @@ void merge(string_vector & strings, size_t start, size_t mid, size_t end) {
 // the two parts together using the merge() method.
 //-----------------------------------------------------------------------------
 void mergesort(string_vector & strings, size_t start, size_t end) {
-  // TODO: implement this function, then delete this comment
+	if (start < end)
+	{
+		int middle = int((end + start) / 2);
+		mergesort(strings, start, middle);
+		mergesort(strings, middle + 1, end);
+		merge(strings, start, middle + 1, end);
+	}
   return;
 }
 
@@ -51,7 +101,31 @@ void mergesort(string_vector & strings, size_t start, size_t end) {
 // It returns the index of the final position of the pivot value.
 //-----------------------------------------------------------------------------
 int hoare_partition(string_vector & strings, int start, int end) {
-  // TODO: implement this function, then delete this comment
+
+	std::string pivot = strings[start];
+	int i = start - 1;
+	int j = end + 1;
+	
+	while (true)
+	{
+		do
+		{
+			i++;
+		} while (strings[i] < pivot);
+
+		do
+		{
+			j--;
+		} while (strings[j] > pivot);
+
+		if (i >= j)
+		{
+			return j;
+		}
+
+		swap(strings[i], strings[j]);
+	}
+
   return 0;
 }
 
@@ -62,7 +136,15 @@ int hoare_partition(string_vector & strings, int start, int end) {
 // the two parts together using the merge() method.
 //-----------------------------------------------------------------------------
 void quicksort(string_vector & strings, int start, int end) {
-  // TODO: implement this function, then delete this comment
+
+
+	if (start < end)
+	{
+		int s = hoare_partition(strings, start, end);
+
+		quicksort(strings, start, s - 1);
+		quicksort(strings, s + 1, end);
+	}
   return;
 }
 
