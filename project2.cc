@@ -87,8 +87,8 @@ void mergesort(string_vector & strings, size_t start, size_t end) {
 	{
 		int middle = int((end + start) / 2);
 		mergesort(strings, start, middle);
-		mergesort(strings, middle + 1, end);
-		merge(strings, start, middle + 1, end);
+		mergesort(strings, middle, end);
+		merge(strings, start, middle, end);
 	}
   return;
 }
