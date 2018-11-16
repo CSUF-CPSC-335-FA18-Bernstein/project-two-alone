@@ -75,7 +75,6 @@ void merge(string_vector & strings, size_t start, size_t mid, size_t end) {
 }
 
 
-
 //-----------------------------------------------------------------------------
 // Sort the given list using the merge sort algorithm.
 // This is a recursive method which splits the list into two
@@ -87,7 +86,7 @@ void mergesort(string_vector & strings, size_t start, size_t end) {
 	{
 		int middle = int((end + start) / 2);
 		mergesort(strings, start, middle);
-		mergesort(strings, middle, end);
+		mergesort(strings, middle , end);
 		merge(strings, start, middle, end);
 	}
   return;
@@ -101,31 +100,25 @@ void mergesort(string_vector & strings, size_t start, size_t end) {
 //-----------------------------------------------------------------------------
 int hoare_partition(string_vector & strings, int start, int end) {
 
+
+	int i = start,j = end;
 	std::string pivot = strings[start];
-	int i = start - 1;
-	int j = end + 1;
-	
-	while (true)
-	{
-		do
-		{
-			i++;
-		} while (strings[i] < pivot);
 
-		do
-		{
+	while (i < j) {
+		while (pivot < strings[j] && j > i ) {
 			j--;
-		} while (strings[j] > pivot);
-
-		if (i >= j)
-		{
-			return j;
 		}
 
 		swap(strings[i], strings[j]);
+
+		while (pivot >= strings[i] && i < j) {
+			i++;
+		}
+
+		swap(strings[j], strings[i]);
 	}
 
-  return 0;
+	return i;
 }
 
 //-----------------------------------------------------------------------------
